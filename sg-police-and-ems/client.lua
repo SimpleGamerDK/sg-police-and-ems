@@ -1,0 +1,56 @@
+ESX = nil
+Citizen.CreateThread(function()
+    while ESX == nil do
+        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        Citizen.Wait(0)
+    end
+end)
+
+-- Police Stuff
+RegisterCommand("EvidenceLocker", function()
+	local playerPed = PlayerPedId()
+	local coords = GetEntityCoords(playerPed)
+	TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_STAND_MOBILE', 0, true)
+	exports['progressBars']:startUI(10000, "Requesting Access")
+	Wait(10000)	
+	TriggerEvent('inventory:openStorage', "Evidence Locker", "evidence-locker-1", 1000, 1000, {"police"})
+	TriggerEvent('phone:notify', { app = 'dispatch', title = 'Access Granted', content = 'Access to Evidence Locker Granted'})
+	AddEventHandler("inventory:close", function()
+		ClearPedTasks(GetPlayerPed(-1))
+	end)	
+end)
+
+RegisterCommand("EvidenceFood", function()
+	local playerPed = PlayerPedId()
+	local coords = GetEntityCoords(playerPed)
+	TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_STAND_MOBILE', 0, true)
+	exports['progressBars']:startUI(10000, "Requesting Access")
+	Wait(10000)	
+	TriggerEvent('inventory:openStorage', "Evidence Food", "evidence-food-1", 500, 1000, {"police"})
+	TriggerEvent('phone:notify', { app = 'dispatch', title = 'Access Granted', content = 'Access to Evidence Food Granted'})
+	AddEventHandler("inventory:close", function()
+		ClearPedTasks(GetPlayerPed(-1))
+	end)	
+end)
+
+-- EMS Stuff
+RegisterCommand("MedbagFood", function()
+	local playerPed = PlayerPedId()
+	local coords = GetEntityCoords(playerPed)
+	TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_STAND_MOBILE', 0, true)
+	exports['progressBars']:startUI(10000, "Requesting Access")
+	Wait(10000)	
+	TriggerEvent('inventory:openStorage', "Medbag Food", "medbag-food-1", 500, 1000, {"ambulance"})
+	TriggerEvent('phone:notify', { app = 'dispatch', title = 'Access Granted', content = 'Access to Medbag Food Granted'})
+	AddEventHandler("inventory:close", function()
+		ClearPedTasks(GetPlayerPed(-1))
+	end)	
+end)
+
+-- Police & EMS Stuff
+RegisterCommand('911', function()
+    local ped = PlayerPedId()
+    local pedCoords = GetEntityCoords(ped)	
+	TriggerServerEvent('dispatch:send', 'police', '911 Caller, Respond ASAP', GetEntityCoords(PlayerPedId()))
+	TriggerServerEvent('dispatch:send', 'ambulance', '911 Caller, Respond ASAP', GetEntityCoords(PlayerPedId()))	
+end) 
