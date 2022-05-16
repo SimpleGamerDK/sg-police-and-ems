@@ -6,6 +6,7 @@ Features
   2. Food Locker for police/ems. (Use /EvidenceFood for police and /MedbagFood for EMS)
   3. /911 command. Sends an alert to police and ems on their phone
   4. /311 command. Sends an alert to the ems on their phone
+  5. Police shops, crafting and storages
 
 Info
 Resmond 0.00ms idle, 0.01ms when active
