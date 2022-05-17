@@ -9,7 +9,7 @@ Features
   5. Police shops, crafting and storages
 
 Info
-Resmond 0.01ms - 0.02 idle
+Resmond 0.01ms - 0.02 idle, 0.03 - 0.08 when in use
 The script has been tested on esx Legacy
 Preview: At some point
 
